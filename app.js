@@ -3,6 +3,7 @@
 require('dotenv').config()
 
 var mngen = require('mngen')
+var _ = require('lodash')
 
 var express = require('express')
 var exphbs = require('express-handlebars')
@@ -31,7 +32,12 @@ app.post('/create', (req, res) => {
 })
 
 app.get('/room', (req, res) => {
-  res.redirect('/room/' + req.query.keyphrase)
+  var keyphrase = req.query.keyphrase
+  if (!keyphrase) {
+    res.status(400).render('bad_key')
+  }
+
+  res.redirect('/room/' + keyphrase.replace(/ /g, '-'))
 })
 
 app.get('/room/:keyphrase', (req, res) => {
@@ -47,7 +53,7 @@ app.get('/room/:keyphrase', (req, res) => {
     return
   }
 
-  res.render('room', rooms[keyphrase])
+  res.render('room', _.merge({}, rooms[keyphrase], {stylesheet: 'room'}))
 })
 
 app.listen(3000, () => { console.log('Listening on *:3000') })

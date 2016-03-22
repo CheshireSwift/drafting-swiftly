@@ -1,0 +1,40 @@
+.room {
+  padding: 0 48px 48px; 48px;
+  height: calc(100% - 128px - 48px);
+}
+
+.content {
+  padding: 12px;
+}
+
+.player-list {
+  height: calc(100% - 24px);
+  overflow-y: scroll;
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat {
+  flex-grow: 1;
+  overflow-y: scroll;
+}
+
+.chat-entry {
+  display: flex;
+  margin-bottom: 0;
+  margin-top: 2.5rem;
+}
+
+.chat-entry input {
+  margin-bottom: 0;
+  flex-grow: 1;
+}
+
+.chat-entry button {
+  margin-bottom: 0;
+}
+

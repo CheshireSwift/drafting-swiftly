@@ -1,0 +1,12 @@
+h1 {
+  padding: 48px;
+}
+
+.home-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 50%;
+}
+

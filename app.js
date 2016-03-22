@@ -30,6 +30,10 @@ app.post('/create', (req, res) => {
   res.redirect('/room/' + keyphrase)
 })
 
+app.get('/room', (req, res) => {
+  res.redirect('/room/' + req.query.keyphrase)
+})
+
 app.get('/room/:keyphrase', (req, res) => {
   var keyphrase = req.params.keyphrase
   if (!/^[a-z]+-[a-z]+-[a-z]+$/.test(keyphrase)) {

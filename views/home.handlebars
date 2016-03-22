@@ -4,17 +4,17 @@
   <div class="row">
     <div class="one-half column">
       <div class="ba">
-        <form action="/join">
-          <label for="keyphrase">Join</label>
-          <input id="keyphrase" type="text" placeholder="XXXX-XXXX-XXXX">
-          <button>Go</button>
+        <form action="/room" method="get">
+          <label for="keyphraseInput">Join</label>
+          <input id="keyphraseInput" name="keyphrase" type="text" placeholder="XXXX-XXXX-XXXX">
+          <button type="submit">Go</button>
         </form>
       </div>
     </div>
     <div class="one-half column">
       <form action="/create" method="post">
           <label for="create">Create</label>
-          <button id="create">New Room</button>
+          <button id="create" type="submit">New Room</button>
       </form>
     </div>
   </div>

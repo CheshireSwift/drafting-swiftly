@@ -15,6 +15,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 app.use(express.static('public'))
 
+if (process.env.NODE_ENV === 'development') {
+  rooms['test-room-yay'] = { keyphrase: 'test-room-yay' }
+}
+
 app.get('/', (req, res) => {
   res.render('home', {stylesheet: 'home'})
 })

@@ -1,6 +1,6 @@
 'use strict'
 
-var router = require('express').Router();
+var router = require('express').Router()
 var rooms = require('../roomManager')
 
 router.get('/', (req, res) => {

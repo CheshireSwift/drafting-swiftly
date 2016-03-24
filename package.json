@@ -6,7 +6,9 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon -e \"js handlebars html css\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check": "standard --global _ --global $ --global io || true",
+    "check-loudly": "standard --global _ --global $ --global io"
   },
   "author": "",
   "license": "ISC",

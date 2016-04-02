@@ -6,7 +6,7 @@ $(document).ready(function () {
   var roomInfo
 
   var room = window.location.pathname.match(/\/room\/([a-z]+-[a-z]+-[a-z]+)/)[1]
-  var user = prompt('Please enter a name')
+  var user = ds.getUser()
 
   socket.on(room + ' user list', updateUsers)
   socket.on(room + ' new message', showMessage)

@@ -1,0 +1,26 @@
+{
+  "name": "drafting-swiftly",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "Sam Collard <sam.collard@softwire.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/cheshireswift/drafting-swiftly",
+  "moduleType": [
+    "globals"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "js-cookie": "^2.1.0",
+    "jquery": "^2.2.2",
+    "lodash": "^4.7.0"
+  }
+}

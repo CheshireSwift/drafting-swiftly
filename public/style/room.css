@@ -38,3 +38,7 @@
   margin-bottom: 0;
 }
 
+.player.owner {
+  font-weight: bold;
+}
+

@@ -38,7 +38,19 @@
   margin-bottom: 0;
 }
 
-.player.owner {
+.owner {
+  font-style: italic;
+}
+
+.self {
   font-weight: bold;
+}
+
+.message {
+  background-color: #fafafa;
+}
+
+.message:nth-child(even) {
+  background-color: #f0f0f0;
 }
 

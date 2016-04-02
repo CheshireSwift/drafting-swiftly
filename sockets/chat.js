@@ -6,11 +6,15 @@ module.exports = function(io) {
     .map('user')
     .value()
 
+  function updateUsers(room) {
+      io.emit(room + ' user list', { users: users(room), owner: '' })
+  }
+
   io.on('connection', function (socket) {
     socket.on('joined room', function(details) {
       _.assign(socket, _.pick(details, 'room', 'user'))
-      socket.emit('user list', users(details.room))
-      io.emit(socket.room + ' user list', { users: users(details.room), owner: '' })
+      socket.emit('user list', users(socket.room))
+      updateUsers(socket.room)
     })
 
     socket.on('chat message', function (chatMessage) {
@@ -20,7 +24,8 @@ module.exports = function(io) {
         message: chatMessage.message
       })
     })
-  })
 
+    socket.on('disconnect', () => updateUsers(socket.room))
+  })
 }
 

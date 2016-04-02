@@ -3,6 +3,8 @@
 $(document).ready(function () {
   var socket = io()
 
+  var roomInfo
+
   var room = window.location.pathname.match(/\/room\/([a-z]+-[a-z]+-[a-z]+)/)[1]
   var user = prompt('Please enter a name')
 
@@ -11,10 +13,11 @@ $(document).ready(function () {
 
   socket.on('test', x => console.log(x))
 
-  function updateUsers(roomInfo) {
+  function updateUsers(serverRoomInfo) {
+    roomInfo = serverRoomInfo
     var userDivs = _(roomInfo.users)
       .sort()
-      .map(user => `<div class="player ${user === roomInfo.owner ? 'owner' : ''}">${user}</div>`)
+      .map(player => `<div class="player ${userClasses(roomInfo, player)}">${player}</div>`)
       .value()
     $('#playerList').html(userDivs)
   }
@@ -23,10 +26,17 @@ $(document).ready(function () {
     var chatContent = $('#chatContent')
     chatContent.append(`
       <div class="message">
-        ${chatMessage.user}: ${chatMessage.message}
+        <span class="${userClasses(roomInfo, chatMessage.user)}">${chatMessage.user}</span>: ${chatMessage.message}
       </div>
     `)
     chatContent[0].scrollTop = chatContent[0].scrollHeight
+  }
+
+  function userClasses(roomInfo, player) {
+    return _.filter([
+      player === roomInfo.owner && 'owner',
+      player === user && 'self'
+    ]).join(' ')
   }
 
   $('form.chat-entry').submit(function () {

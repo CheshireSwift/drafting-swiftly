@@ -19,6 +19,11 @@ app.set('view engine', 'handlebars')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/bower_components', express.static(path.join(__dirname, '/bower_components')))
 
+// Configure POST request parsing
+var bodyParser = require('body-parser');
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Configure dynamic routes
 app.use('/', require('./routes/home'))
 app.use('/room', require('./routes/room'))

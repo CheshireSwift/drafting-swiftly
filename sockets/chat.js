@@ -1,13 +1,17 @@
 'use strict'
 
+var rooms = require('../roomManager')
+
 module.exports = function(io) {
   var users = room => _(io.sockets.connected)
     .filter(['room', room])
     .map('user')
     .value()
 
-  function updateUsers(room) {
-      io.emit(room + ' user list', { users: users(room), owner: '' })
+  function updateUsers(keyphrase) {
+      io.emit(keyphrase + ' user list', {
+        users: users(keyphrase), owner: rooms.get(keyphrase).owner
+      })
   }
 
   io.on('connection', function (socket) {
@@ -18,7 +22,6 @@ module.exports = function(io) {
     })
 
     socket.on('chat message', function (chatMessage) {
-      console.log(socket.room + ': ' + chatMessage.message)
       socket.broadcast.emit(socket.room + ' new message', {
         user: socket.user,
         message: chatMessage.message

@@ -2,22 +2,19 @@
 
 var router = require('express').Router()
 var rooms = require('../roomManager')
-var mngen = require('mngen')
 
 router.get('/', (req, res) => {
-  res.render('home', {stylesheet: 'home'})
+  res.render('home', {stylesheet: 'home', script: 'home'})
 })
 
 router.post('/create', (req, res) => {
-  var keyphrase = mngen.word(3)
-
-  // Don't want to clobber an existing room.
-  while (rooms[keyphrase]) {
-    keyphrase = mngen.word(3)
+  var owner = req.body.user
+  if (!owner) {
+    res.status(400).render('error', {message: 'No username found for owner when creating room'})
   }
 
-  rooms[keyphrase] = {keyphrase}
-  res.redirect('/room/' + keyphrase)
+  var room = rooms.createRoom(owner)
+  res.redirect('/room/' + room.keyphrase)
 })
 
 module.exports = router

@@ -19,13 +19,13 @@ router.get('/:keyphrase', (req, res) => {
     return
   }
 
-  var room = rooms[keyphrase]
+  var room = rooms.get(keyphrase)
   if (!room) {
     res.status(404).render('room_not_found')
     return
   }
 
-  res.render('room', _.merge({}, rooms[keyphrase], {stylesheet: 'room', script: 'room'}))
+  res.render('room', _.merge({}, room, {stylesheet: 'room', script: 'room'}))
 })
 
 module.exports = router

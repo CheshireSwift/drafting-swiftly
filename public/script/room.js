@@ -59,6 +59,7 @@ const sockets = function() {
   function configureSocketHandlers(room) {
     socket.on(room + ' user list', domManip.updateUsers)
     socket.on(room + ' new message', domManip.showMessage)
+    socket.on(room + ' refresh', document.location.reload.bind(null, true))
     socket.on('test', x => console.log(x))
   }
 

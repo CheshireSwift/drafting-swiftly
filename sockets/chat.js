@@ -8,10 +8,16 @@ module.exports = function(io) {
     .map('user')
     .value()
 
+  function getRoomOrRefresh(keyphrase) {
+    var room = rooms.get(keyphrase)
+    return room || (io.emit(keyphrase + ' refresh'), false)
+  }
+
   function updateUsers(keyphrase) {
-      io.emit(keyphrase + ' user list', {
-        users: users(keyphrase), owner: rooms.get(keyphrase).owner
-      })
+    var room = getRoomOrRefresh(keyphrase)
+    room && io.emit(keyphrase + ' user list', {
+      users: users(keyphrase), owner: room.owner
+    })
   }
 
   io.on('connection', function (socket) {

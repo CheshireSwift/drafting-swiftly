@@ -1,17 +1,21 @@
 'use strict'
 
-$(document).ready(function () {
-  var socket = io()
+var user = ds.getUser()
 
+const domManip = function() {
   var roomInfo
 
-  var room = window.location.pathname.match(/\/room\/([a-z]+-[a-z]+-[a-z]+)/)[1]
-  var user = ds.getUser()
+  function configureEventHandlers() {
+    $('form.chat-entry').submit(function () {
+      var message = domManip.getAndClearChatInput()
+      if (message) {
+        sockets.sendChatMessage(message)
+        domManip.showMessage({message, user})
+      }
 
-  socket.on(room + ' user list', updateUsers)
-  socket.on(room + ' new message', showMessage)
-
-  socket.on('test', x => console.log(x))
+      return false
+    })
+  }
 
   function updateUsers(serverRoomInfo) {
     roomInfo = serverRoomInfo
@@ -32,6 +36,13 @@ $(document).ready(function () {
     chatContent[0].scrollTop = chatContent[0].scrollHeight
   }
 
+  function getAndClearChatInput() {
+    var chatInput = $('#chatInput')
+    var message = chatInput.val()
+    chatInput.val('')
+    return message
+  }
+
   function userClasses(roomInfo, player) {
     return _.filter([
       player === roomInfo.owner && 'owner',
@@ -39,18 +50,33 @@ $(document).ready(function () {
     ]).join(' ')
   }
 
-  $('form.chat-entry').submit(function () {
-    var chatInput = $('#chatInput')
-    var message = chatInput.val()
-    if (message) {
-      socket.emit('chat message', { message })
-      chatInput.val('')
-      showMessage({message, user})
-    }
+  return { configureEventHandlers, updateUsers, showMessage, getAndClearChatInput }
+}()
 
-    return false
-  })
+const sockets = function() {
+  var socket = io()
 
-  socket.emit('joined room', { room, user })
+  function configureSocketHandlers(room) {
+    socket.on(room + ' user list', domManip.updateUsers)
+    socket.on(room + ' new message', domManip.showMessage)
+    socket.on('test', x => console.log(x))
+  }
+
+  function announcePresence(room) {
+    socket.emit('joined room', { room, user })
+  }
+
+  function sendChatMessage(message) {
+    socket.emit('chat message', { message })
+  }
+
+  return { configureSocketHandlers, announcePresence, sendChatMessage }
+}()
+
+$(document).ready(function () {
+  var room = window.location.pathname.match(/\/room\/([a-z]+-[a-z]+-[a-z]+)/)[1]
+  sockets.configureSocketHandlers(room)
+  domManip.configureEventHandlers()
+  sockets.announcePresence(room)
 })
 

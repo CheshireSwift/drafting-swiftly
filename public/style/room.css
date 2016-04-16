@@ -12,6 +12,10 @@
   overflow-y: scroll;
 }
 
+.player:nth-child(n+8) {
+  color: #aaaaaa;
+}
+
 .chat-panel {
   display: flex;
   flex-direction: column;

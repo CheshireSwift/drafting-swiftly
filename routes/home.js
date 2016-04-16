@@ -13,7 +13,7 @@ router.post('/create', (req, res) => {
     res.status(400).render('error', {message: 'No username found for owner when creating room'})
   }
 
-  var room = rooms.createRoom(owner)
+  var room = rooms.create(owner)
   res.redirect('/room/' + room.keyphrase)
 })
 

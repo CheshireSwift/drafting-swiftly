@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'development') {
   rooms['test-room-yay'] = { keyphrase: 'test-room-yay' }
 }
 
-function createRoom(owner) {
+function create(owner) {
   var keyphrase = mngen.word(3)
 
   // Don't want to clobber an existing room.
@@ -21,7 +21,7 @@ function createRoom(owner) {
 }
 
 module.exports = {
-  createRoom,
+  create,
   get: keyphrase => rooms[keyphrase]
 }
 

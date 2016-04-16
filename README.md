@@ -1,5 +1,7 @@
 # drafting-swiftly
 
+[![Build Status](https://travis-ci.org/CheshireSwift/drafting-swiftly.svg?branch=master)](https://travis-ci.org/CheshireSwift/drafting-swiftly)
+
 Card drafting simulator web app.
 
 ## Installation

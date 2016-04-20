@@ -5,7 +5,10 @@ var mngen = require('mngen')
 var rooms = {}
 
 if (process.env.NODE_ENV === 'development') {
-  rooms['test-room-yay'] = { keyphrase: 'test-room-yay' }
+  rooms['test-room-yay'] = {
+    keyphrase: 'test-room-yay',
+    isOwner: _.constant(true)
+  }
 }
 
 function create(owner) {
@@ -17,7 +20,11 @@ function create(owner) {
   }
 
   console.log(`Creating room ${keyphrase} for ${owner}`)
-  return rooms[keyphrase] = {keyphrase, owner}
+  return rooms[keyphrase] = {
+    keyphrase,
+    owner,
+    isOwner: username => username === owner
+  }
 }
 
 module.exports = {

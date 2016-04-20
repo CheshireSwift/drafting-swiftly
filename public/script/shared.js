@@ -1,6 +1,6 @@
 'use strict'
 
-const cookieName = 'drafting-swiftly:username'
+const cookieName = 'drafting-swiftly_username'
 
 var ds = {
   getUser: () => {

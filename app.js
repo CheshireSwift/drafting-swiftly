@@ -1,9 +1,5 @@
 'use strict'
 
-require('dotenv').config()
-
-GLOBAL._ = require('lodash')
-
 var path = require('path')
 
 // Create express app
@@ -32,11 +28,5 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', require('./routes/home'))
 app.use('/room', require('./routes/room'))
 
-// Create HTTP server running app, configure socket comms
-var http = require('http').Server(app)
-var sockets = require('./socketLoader')(http)
-sockets.use('./sockets/chat')
-
-// Run the server
-http.listen(3000, () => { console.log('Listening on *:3000') })
+module.exports = app
 

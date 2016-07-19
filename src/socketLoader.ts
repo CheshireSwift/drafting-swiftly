@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function(http) {
+export default function(http) {
   var io = require('socket.io')(http)
   return {
     use: function(path) {

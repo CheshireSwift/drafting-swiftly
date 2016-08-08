@@ -5,6 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "dev": "nodemon -e \"js handlebars html css\"",
     "test": "./node_modules/.bin/mocha test --recursive",
     "check": "standard --global _ --global $ --global io || true",
